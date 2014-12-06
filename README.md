@@ -6,7 +6,7 @@ cik
 
 **Requirments:**  
 requires docopt:  
-	pip install docopt
+	```pip install docopt```
 
 
 **USAGE:**  
