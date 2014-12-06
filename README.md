@@ -9,9 +9,8 @@ requires docopt:
 	pip install docopt
 
 
-**USAGE:**
-
-⋅⋅⋅cik.py reset  
+**USAGE:**  
+	cik.py reset  
 	cik.py init ([-]| --addr=<wallet_address>)  
 	cik.py status  
 	cik.py (-h | --help)  
