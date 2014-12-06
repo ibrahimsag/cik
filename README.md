@@ -1,4 +1,5 @@
 cik
 ===
-**Des**
+**Des**:
+
 *cik* is a command-line bitcoin wallet.
