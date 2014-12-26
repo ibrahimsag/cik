@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-
 """cik.
 USAGE:
 	cik.py reset
@@ -8,9 +7,10 @@ USAGE:
 	cik.py (-h | --help)
 	cik.py --version
 Options:
-  -h --help	  Show this screen.
-  --version	  Show version.
+  -h --help  	Show this screen.
+  --version  		Show version.
 """
+cik_version = 0.3
 from docopt import docopt
 import ConfigParser
 import getpass
@@ -30,6 +30,9 @@ def printStatus():
 		print"\tcik.py init --addr=<wallet_address> --pwd=<wallet_password>"
 		print "\tor"
 		print"\tcik.py init -"
+	else:
+		print "Address:\t%s"%W_ADDR
+
 	return
 def reset():
 	config.set("user_info", "wallet.address", "")
@@ -43,7 +46,7 @@ def reset():
 
 if __name__ == '__main__':
 	#TODO Read cnf file
-	arguments = docopt(__doc__)
+	arguments = docopt(__doc__,help=True, version=cik_version)
 	config = ConfigParser.ConfigParser()
 	config.read('conf.cfg')
 	W_ADDR = config.get('user_info', 'wallet.address')
@@ -59,3 +62,5 @@ if __name__ == '__main__':
 		printStatus()
 	elif arguments['reset']:
 		reset()
+	elif arguments['--version']:
+		print "cik Version %f"%cik_version
