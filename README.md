@@ -1,7 +1,7 @@
 cik
 ===
 **Des**:  
-*cik* is minimalistic a command-line bitcoin wallet.  
+*cik* is a minimalistic command-line bitcoin wallet.  
 This project is intended to be as a proof of concept and a really simple implementation to learn from.  
 Some of the decisions were made to make it simple rather than safe, a third-party service is used for the broadcast of transaction.  
 It is intended to be used via testnet.
@@ -22,5 +22,5 @@ requires pycoin:
 &nbsp;&nbsp;&nbsp;&nbsp;cik.py (-h | --help)  
 &nbsp;&nbsp;&nbsp;&nbsp;cik.py --version  
 **Options:**  
-  -h --help     Show help.  
-  --version     Show version.  
+&nbsp;&nbsp;&nbsp;&nbsp;-h --help     Show help.  
+&nbsp;&nbsp;&nbsp;&nbsp;--version     Show version.  
