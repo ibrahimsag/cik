@@ -1,0 +1,16 @@
+{
+  "name": "cik",
+  "version": "1.0.0",
+  "description": "bitcoin wallet",
+  "main": "app.js",
+  "dependencies": {
+    "async": "^0.9.0",
+    "chain-node": "^3.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
