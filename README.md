@@ -10,6 +10,9 @@ It is intended to be used via testnet.
 **Requirments:**  
 requires docopt:  
 &nbsp;&nbsp;&nbsp;&nbsp;```pip install docopt```
+requires pycoin:  
+&nbsp;&nbsp;&nbsp;&nbsp;```pip install pycoin```
+
 
 
 **USAGE:**  

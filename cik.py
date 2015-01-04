@@ -15,6 +15,8 @@ cik_version = 0.3
 from docopt import docopt
 import ConfigParser
 import getpass
+import pychain
+import subprocess
 W_ADDR = ""
 W_PWD = ""
 
@@ -22,7 +24,9 @@ def init(addr, pwd, config):
 	"Set addr and pwd as wallet address and wallet secret"
 	config.set("user_info", "wallet.address", addr)
 	config.set("user_info", "wallet.password", pwd)
-	with  open("conf.cfg",'w') as cfgfile:
+	wif = subprocess.Popen("ku -W " + pwd, shell=True, stdout=subprocess.PIPE).stdout.read()
+	config.set("user_info", "wallet.wif", wif)
+	with open("conf.cfg",'w') as cfgfile:
 		config.write(cfgfile)
 		print "Update successful"
 	return
@@ -37,6 +41,10 @@ def printStatus():
 	else:
 		#TODO: query [module] to get current balance
 		print "Address:\t%s"%W_ADDR
+		confirmed_dic,total_dic = pychain.getBalance(W_ADDR)
+		pending = total_dic['balance'] - confirmed_dic['balance']
+		absolute = confirmed_dic['balance']
+		print "Balance: {0} \t Pending: {1}".format(absolute, pending)
 
 	return
 
@@ -63,7 +71,7 @@ if __name__ == '__main__':
 	config.read('conf.cfg')
 	W_ADDR = config.get('user_info', 'wallet.address')
 	W_PWD = config.get('user_info', 'wallet.password')
-	print(arguments)
+	# print(arguments)
 	if arguments['init']:
 		if arguments['--addr'] and arguments['--pwd']:
 			init(arguments['--addr'], arguments['--pwd'], config)
