@@ -8,6 +8,8 @@ var chain = new Chain({
   blockChain: 'testnet3'
 });
 
+var args = process.argv.slice(2);
+
 function Wallet(filename) {
     this.walletInfo = JSON.parse(fs.readFileSync(filename, 'utf8'));
     this.netcode = this.walletInfo['netcode'].toLowerCase();
@@ -16,34 +18,41 @@ function Wallet(filename) {
     return this;
 }
 
+/*
 var wallet1 = new Wallet("../wallet1.json")
+var wallet2 = new Wallet("../wallet2.json")
+
+console.log(wallet1.address, wallet1.wif, wallet2.address);
 
 chain.getAddress(wallet1.address, function(err, resp) {
   console.log(resp);
 });
 
-var wallet2 = new Wallet("../wallet2.json")
-
 chain.getAddress(wallet2.address, function(err, resp) {
   console.log(resp);
 });
+*/
 
 /*
- * Transaction code. needs from_address, from_secret, to_address, amount
+ * Transaction transacted here.
+ */
+input_address = args[0];
+input_secret = args[1];
+output_address = args[2];
+amount = args[3];
 async.waterfall([
     function(callback) {
         chain.buildTransaction(
             {
                 inputs: [
                     {
-                        address: wallet1.address,
-                        // private_key: wallet1.wif
+                        address: input_address,
                     }
                 ],
                 outputs: [
                     {
-                        address: wallet2.address,
-                        amount: 0.01
+                        address: output_address,
+                        amount: amount
                     }
                 ]
             },
@@ -52,7 +61,10 @@ async.waterfall([
     },
     function(resp, callback) {
         template = resp;
-        private_keys = [wallet1.wif];
+        if(template.message) {
+            callback(template, null);
+        }
+        private_keys = [input_secret];
         signed_template = chain.signTemplate(template, private_keys);
         callback(null, signed_template);
     },
@@ -61,7 +73,12 @@ async.waterfall([
     }
 ],
 function(err, resp) {
+    if(err || resp.message) {
+        if(err)
+            console.log(err);
+        if(resp)
+            console.log(resp);
+        process.exit(1);
+    }
     console.log(resp);
 });
-
-*/
